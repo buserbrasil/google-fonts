@@ -29,7 +29,7 @@ const nuxtModule = function(moduleOptions) {
     base64: false,
     inject: true,
     overwriting: false,
-    crossOriginAnonymous: false,
+    crossOrigin: null,
     outputDir: this.options.dir.assets,
     stylePath: "css/fonts.css",
     fontsDir: "fonts",
@@ -112,10 +112,10 @@ const nuxtModule = function(moduleOptions) {
       return;
     }
     this.options.head.script = this.options.head.script || [];
-    if (options.crossOriginAnonymous) {
+    if (options.crossOrigin) {
       this.options.head.script.push({
         hid: "gf-script",
-        innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";l.crossorigin="anonymous";document.querySelector("head").appendChild(l);})();`
+        innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";l.crossorigin="${options.crossOrigin}";document.querySelector("head").appendChild(l);})();`
       });
     } else {
       this.options.head.script.push({
