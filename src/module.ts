@@ -13,6 +13,7 @@ export interface ModuleOptions extends Partial<DownloadOptions & GoogleFonts> {
   preload?: boolean;
   useStylesheet?: boolean;
   download?: boolean;
+  crossOrigin?: String,
   inject?: boolean;
 }
 
