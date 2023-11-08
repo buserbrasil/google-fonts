@@ -169,7 +169,7 @@ const nuxtModule: Module<ModuleOptions> = function (moduleOptions) {
     if (options.crossOrigin) {
       this.options.head.script.push({
         hid: 'gf-script',
-        innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";l.crossorigin="${options.crossOrigin}";document.querySelector("head").appendChild(l);})();`
+        innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";l.crossOrigin="${options.crossOrigin}";document.querySelector("head").appendChild(l);})();`
       })
     } else {
       this.options.head.script.push({
