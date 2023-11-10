@@ -167,17 +167,12 @@ const nuxtModule: Module<ModuleOptions> = function (moduleOptions) {
     this.options.head.script = this.options.head.script || []
     // @ts-ignore
 
-    if (options.crossOrigin) {
-      this.options.head.script.push({
-        hid: 'gf-script',
-        innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";l.crossorigin="${options.crossOrigin}";document.querySelector("head").appendChild(l);})();`
-      })
-    } else {
-      this.options.head.script.push({
-        hid: 'gf-script',
-        innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";document.querySelector("head").appendChild(l);})();`
-      })
-    }
+    const crossOriginAttribute = options.crossOrigin !== null ? `l.crossOrigin=${options.crossOrigin};` : ''
+
+    this.options.head.script.push({
+      hid: 'gf-script',
+      innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";${crossOriginAttribute}document.querySelector("head").appendChild(l);})();`
+    })
 
     // no-JS fallback
     // @ts-ignore
