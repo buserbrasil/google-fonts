@@ -100,7 +100,8 @@ const nuxtModule = function(moduleOptions) {
         hid: "gf-preload",
         rel: "preload",
         as: "style",
-        href: url
+        href: url,
+        crossorigin: options.crossOrigin || void 0
       });
     }
     if (options.useStylesheet) {
@@ -112,17 +113,11 @@ const nuxtModule = function(moduleOptions) {
       return;
     }
     this.options.head.script = this.options.head.script || [];
-    if (options.crossOrigin) {
-      this.options.head.script.push({
-        hid: "gf-script",
-        innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";l.crossOrigin="${options.crossOrigin}";document.querySelector("head").appendChild(l);})();`
-      });
-    } else {
-      this.options.head.script.push({
-        hid: "gf-script",
-        innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";document.querySelector("head").appendChild(l);})();`
-      });
-    }
+    const crossOriginAttribute = options.crossOrigin !== null ? `l.crossOrigin=${options.crossOrigin};` : "";
+    this.options.head.script.push({
+      hid: "gf-script",
+      innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";${crossOriginAttribute}document.querySelector("head").appendChild(l);})();`
+    });
     this.options.head.noscript = this.options.head.noscript || [];
     this.options.head.noscript.push({
       hid: "gf-noscript",
