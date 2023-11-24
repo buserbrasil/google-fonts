@@ -146,7 +146,8 @@ const nuxtModule: Module<ModuleOptions> = function (moduleOptions) {
         hid: 'gf-preload',
         rel: 'preload',
         as: 'style',
-        href: url
+        href: url,
+        crossorigin: options.crossOrigin || undefined
       })
     }
 
