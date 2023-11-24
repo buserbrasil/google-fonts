@@ -113,7 +113,7 @@ const nuxtModule = function(moduleOptions) {
       return;
     }
     this.options.head.script = this.options.head.script || [];
-    const crossOriginAttribute = options.crossOrigin !== null ? `l.crossOrigin=${options.crossOrigin};` : "";
+    const crossOriginAttribute = options.crossOrigin !== null ? `l.crossOrigin="${options.crossOrigin}";` : "";
     this.options.head.script.push({
       hid: "gf-script",
       innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";${crossOriginAttribute}document.querySelector("head").appendChild(l);})();`
