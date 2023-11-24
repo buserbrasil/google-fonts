@@ -168,7 +168,7 @@ const nuxtModule: Module<ModuleOptions> = function (moduleOptions) {
     this.options.head.script = this.options.head.script || []
     // @ts-ignore
 
-    const crossOriginAttribute = options.crossOrigin !== null ? `l.crossOrigin=${options.crossOrigin};` : ''
+    const crossOriginAttribute = options.crossOrigin !== null ? `l.crossOrigin="${options.crossOrigin}";` : ''
 
     this.options.head.script.push({
       hid: 'gf-script',
