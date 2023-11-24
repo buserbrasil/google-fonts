@@ -13,6 +13,7 @@ export interface ModuleOptions extends Partial<DownloadOptions & GoogleFonts> {
   preload?: boolean;
   useStylesheet?: boolean;
   download?: boolean;
+  crossOrigin?: String,
   inject?: boolean;
 }
 
@@ -145,7 +146,8 @@ const nuxtModule: Module<ModuleOptions> = function (moduleOptions) {
         hid: 'gf-preload',
         rel: 'preload',
         as: 'style',
-        href: url
+        href: url,
+        crossorigin: options.crossOrigin || undefined
       })
     }
 
@@ -166,17 +168,12 @@ const nuxtModule: Module<ModuleOptions> = function (moduleOptions) {
     this.options.head.script = this.options.head.script || []
     // @ts-ignore
 
-    if (options.crossOrigin) {
-      this.options.head.script.push({
-        hid: 'gf-script',
-        innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";l.crossOrigin="${options.crossOrigin}";document.querySelector("head").appendChild(l);})();`
-      })
-    } else {
-      this.options.head.script.push({
-        hid: 'gf-script',
-        innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";document.querySelector("head").appendChild(l);})();`
-      })
-    }
+    const crossOriginAttribute = options.crossOrigin !== null ? `l.crossOrigin=${options.crossOrigin};` : ''
+
+    this.options.head.script.push({
+      hid: 'gf-script',
+      innerHTML: `(function(){var l=document.createElement('link');l.rel="stylesheet";l.href="${url}";${crossOriginAttribute}document.querySelector("head").appendChild(l);})();`
+    })
 
     // no-JS fallback
     // @ts-ignore
